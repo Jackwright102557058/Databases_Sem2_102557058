@@ -70,16 +70,29 @@ INSERT INTO CLUB(Clubname,Cl_Contactname) VALUES ('Please Dont Join Club', 'How 
 
 INSERT INTO SEASON(Seasonyear, Seasonname) VALUES (2018, 'Winter');
 INSERT INTO SEASON(Seasonyear, Seasonname) VALUES (2018, 'Summer');
-INSERT INTO SEASON(Seasonyear, Seasonname) VALUES (2017, 'Summer');
+INSERT INTO SEASON(Seasonyear, Seasonname) VALUES (2019, 'Summer');
 INSERT INTO SEASON(Seasonyear, Seasonname) VALUES (2017, 'Winter');
 
 INSERT INTO TEAMENTRY(En_Teamnumber,En_Agegroup,Seasonname,Seasonyear,Clubname) VALUES (1,'U14','Summer',2018,'Mt Martha Basketball Club');
 INSERT INTO TEAMENTRY(En_Teamnumber,En_Agegroup,Seasonname,Seasonyear,Clubname) VALUES (2,'U14','Summer',2018,'Mt Martha Basketball Club');
 INSERT INTO TEAMENTRY(En_Teamnumber,En_Agegroup,Seasonname,Seasonyear,Clubname) VALUES (4,'U14','Winter',2017,'I Wanna Die Club');
-INSERT INTO TEAMENTRY(En_Teamnumber,En_Agegroup,Seasonname,Seasonyear,Clubname) VALUES (3,'U14','Summer',2017,'Please Dont Join Club');
+INSERT INTO TEAMENTRY(En_Teamnumber,En_Agegroup,Seasonname,Seasonyear,Clubname) VALUES (3,'U14','Summer',2019,'Please Dont Join Club');
 
 
 INSERT INTO PLAYERREGISTRATION(Playerid,Clubname,Seasonyear,Seasonname,En_Agegroup,En_Teamnumber,Dateregistered) VALUES (10002,'Mt Martha Basketball Club',2018,'Summer','U14', 2,'01/01/2018');
 INSERT INTO PLAYERREGISTRATION(Playerid,Clubname,Seasonyear,Seasonname,En_Agegroup,En_Teamnumber,Dateregistered) VALUES (10003,'Mt Martha Basketball Club',2018,'Summer','U14', 2,'01/01/2018');
 INSERT INTO PLAYERREGISTRATION(Playerid,Clubname,Seasonyear,Seasonname,En_Agegroup,En_Teamnumber,Dateregistered) VALUES (10004,'I Wanna Die Club',2017,'Winter','U14', 4,'08/02/2017');
-INSERT INTO PLAYERREGISTRATION(Playerid,Clubname,Seasonyear,Seasonname,En_Agegroup,En_Teamnumber,Dateregistered) VALUES (10005,'Please Dont Join Club',2017,'Summer','U14', 3,'03/02/2017');
+INSERT INTO PLAYERREGISTRATION(Playerid,Clubname,Seasonyear,Seasonname,En_Agegroup,En_Teamnumber,Dateregistered) VALUES (10005,'Please Dont Join Club',2019,'Summer','U14', 3,'03/02/2017');
+
+SELECT PR.Playerid, P.Pl_Fname, P.Pl_Lname, P.Pl_Phone, PR.Clubname, C.Cl_Contactname, PR.Seasonyear, PR.Seasonname, PR.En_Agegroup, PR.En_Teamnumber FROM PLAYERREGISTRATION PR
+LEFT OUTER JOIN PLAYER P ON P.Playerid = PR.Playerid
+LEFT OUTER JOIN CLUB C ON C.Clubname = PR.Clubname
+
+ORDER By PR.Playerid asc;
+
+SELECT SeasonYear, En_Agegroup, COUNT(Playerid) AS 'Number of Players' FROM PLAYERREGISTRATION
+Group By SeasonYear, En_Agegroup
+ORDER By SeasonYear asc;
+
+Select Pl_Fname, Pl_Lname, Pl_Phone from PLAYER 
+WHERE Pl_Fname = (SELECT Pl_Fname Where Pl_fname = 'John');
